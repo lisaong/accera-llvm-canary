@@ -8,5 +8,5 @@ wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.downloa
 
 export CMAKE_LIBRARY_PATH=/usr/local/cuda-11.3/targets/x86_64-linux/lib/stubs
 
-printf 'export PATH=/usr/local/cuda-11.3/bin:$PATH\n' >> ${HOME}/.bashrc \
-    && printf "`head /etc/ld.so.conf.d/cuda-11-3.conf`/stubs\\n" >> /etc/ld.so.conf.d/cuda-11-3.conf
+printf 'export PATH=/usr/local/cuda-11.3/bin:$PATH\n' >> ${HOME}/.bashrc
+#    && printf "`head /etc/ld.so.conf.d/cuda-11-3.conf`/stubs\\n" >> /etc/ld.so.conf.d/cuda-11-3.conf
