@@ -3,9 +3,10 @@ set -e -x
 
 apt-get install -y --no-install-recommends \
     curl \
-    zip \
+    pkg-config \
+    tar \
     unzip \
-    tar
+    zip
 
 /opt/vcpkg/bootstrap-vcpkg.sh
 /opt/vcpkg/vcpkg install catch2 tomlplusplus --overlay-ports=/opt/llvm-port
