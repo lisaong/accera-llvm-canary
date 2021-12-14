@@ -1,7 +1,9 @@
 FROM ubuntu:focal
 
-ADD scripts /tmp/scripts
+ARG LLVM_RELEASE
+ENV LLVM_VERSION=$LLVM_RELEASE
 
+ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts
 RUN sh /tmp/scripts/install.buildtools.sh
 RUN sh /tmp/scripts/install.cuda.sh

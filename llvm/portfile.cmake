@@ -1,5 +1,5 @@
 # Builds LLVM for features needed by Accera
-set(LLVM_VERSION "13.0.0")
+set(LLVM_VERSION $ENV{LLVM_VERSION}) # e.g. llvmorg-13.0.0
 
 # Only release builds to save space, comment this out if you want both release and debug
 set(VCPKG_BUILD_TYPE release)
@@ -8,6 +8,7 @@ set(VCPKG_BUILD_TYPE release)
 vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 
 # Note: to get the SHA512 after updating REF, run once after changing REF and the computed SHA512 will be printed in the error spew
+# Whenever LLVM_VERSION changes, SHA512 will have to be manually updated to match
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO llvm/llvm-project
