@@ -37,6 +37,8 @@ dpkg --add-architecture i386 \
     liblzma-dev \
     gnupg \
     ca-certificates \
+    python3 \
+    python3-pip \
     libvulkan-dev \
     libomp-11-dev
 
