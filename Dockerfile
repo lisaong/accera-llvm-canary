@@ -1,7 +1,6 @@
 FROM ubuntu:focal
 
 ARG LLVM_RELEASE
-ENV LLVM_VERSION=$LLVM_RELEASE
 
 ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts

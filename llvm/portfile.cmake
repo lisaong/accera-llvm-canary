@@ -1,5 +1,5 @@
 # Builds LLVM for features needed by Accera
-set(LLVM_VERSION $ENV{LLVM_VERSION}) # e.g. llvmorg-13.0.0
+set(LLVM_VERSION $ENV{LLVM_RELEASE}) # e.g. llvmorg-13.0.0
 
 # Only release builds to save space, comment this out if you want both release and debug
 set(VCPKG_BUILD_TYPE release)
@@ -12,7 +12,7 @@ vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO llvm/llvm-project
-    REF llvmorg-${LLVM_VERSION}
+    REF ${LLVM_VERSION}
     SHA512 8004c05d32b9720fb3391783621690c1df9bd1e97e72cbff9192ed88a84b0acd303b61432145fa917b5b5e548c8cee29b24ef8547dcc8677adf4816e7a8a0eb2
     HEAD_REF main
     PATCHES
