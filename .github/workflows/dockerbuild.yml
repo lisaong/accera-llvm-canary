@@ -35,7 +35,7 @@ jobs:
       with:
         images: lisaong/accera-llvm-ubuntu
         flavor: |
-          suffix='-${{ steps.llvm.outputs.release }}'
+          suffix=-${{ steps.llvm.outputs.release }}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
