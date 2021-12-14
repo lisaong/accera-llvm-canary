@@ -13,4 +13,5 @@ apt-get install -y --no-install-recommends \
 
 ${VCPKG_ROOT}/bootstrap-vcpkg.sh
 ${VCPKG_ROOT}/vcpkg install catch2 tomlplusplus --overlay-ports=${PORT_SRC}
-${VCPKG_ROOT}/vcpkg install accera-llvm --overlay-ports=${PORT_SRC}
+
+VCPKG_KEEP_ENV_VARS=LLVM_VERSION ${VCPKG_ROOT}/vcpkg install accera-llvm --overlay-ports=${PORT_SRC}
