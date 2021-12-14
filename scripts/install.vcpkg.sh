@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e -x
 
+VCPKG_ROOT=`pwd`
+PORT_SRC=$1
+
 apt-get install -y --no-install-recommends \
     curl \
     pkg-config \
@@ -8,6 +11,6 @@ apt-get install -y --no-install-recommends \
     unzip \
     zip
 
-/opt/vcpkg/bootstrap-vcpkg.sh
-/opt/vcpkg/vcpkg install catch2 tomlplusplus --overlay-ports=/opt/llvm-port
-/opt/vcpkg/vcpkg install accera-llvm --overlay-ports=/opt/llvm-port
+${VCPKG_ROOT}/bootstrap-vcpkg.sh
+${VCPKG_ROOT}/vcpkg install catch2 tomlplusplus --overlay-ports=${PORT_SRC}
+${VCPKG_ROOT}/vcpkg install accera-llvm --overlay-ports=${PORT_SRC}
