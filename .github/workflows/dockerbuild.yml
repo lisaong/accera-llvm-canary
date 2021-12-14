@@ -18,8 +18,9 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - id: llvm
-      uses: pozetronic/github-action-get-latest-release@master
+    - name: Get latest LLVM release
+      id: llvm
+      uses: pozetroninc/github-action-get-latest-release@v0.5.0
       with:
         owner: llvm
         repo: llvm-project
