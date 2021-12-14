@@ -48,7 +48,9 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        tags: ${{ steps.llvm.outputs.release }}
+        flavor: |
+          suffix=${{ steps.llvm.outputs.release }}
+        tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
         build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
