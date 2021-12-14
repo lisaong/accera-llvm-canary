@@ -4,10 +4,8 @@ on:
   # pull_request:
   #   branches: [ main ]
   push:
-    # branches:
-    #   - 'main'
-    tags:
-      - 'v*'
+    branches:
+      - 'main'
   schedule:
     # https://crontab.guru/weekly
     - cron: '0 0 * * 0'
