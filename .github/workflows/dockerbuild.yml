@@ -53,6 +53,14 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
         build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+
+    - name: Upload build logs
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: accera-llvm-build-logs
+        path: /opt/vcpkg/buildtrees/accera-llvm/*.log
+
   debug:
     runs-on: ubuntu-latest
     steps:
@@ -96,3 +104,10 @@ jobs:
         build-args: |
           LLVM_RELEASE=${{ steps.llvm.outputs.release }}
           LLVM_BUILD_TYPE=debug
+      
+    - name: Upload build logs
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: accera-llvm-dbg-build-logs
+        path: /opt/vcpkg/buildtrees/accera-llvm/*.log
