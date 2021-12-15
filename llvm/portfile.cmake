@@ -1,8 +1,10 @@
 # Builds LLVM for features needed by Accera
 set(LLVM_VERSION $ENV{LLVM_RELEASE}) # e.g. llvmorg-13.0.0
 
-# Only release builds to save space, comment this out if you want both release and debug
 set(VCPKG_BUILD_TYPE release)
+if(DEFINED ENV{LLVM_BUILD_TYPE})
+  set(VCPKG_BUILD_TYPE $ENV{LLVM_BUILD_TYPE} )
+endif()
 
 # BUILD_SHARED_LIBS option is not supported on Windows
 vcpkg_check_linkage(ONLY_STATIC_LIBRARY)

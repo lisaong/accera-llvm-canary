@@ -1,6 +1,7 @@
 FROM ubuntu:focal
 
 ARG LLVM_RELEASE
+ARG LLVM_BUILD_TYPE=release
 
 ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts
