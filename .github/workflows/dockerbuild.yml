@@ -93,4 +93,6 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
-        build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }},LLVM_BUILD_TYPE=debug
+        build-args: |
+          LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+          LLVM_BUILD_TYPE=debug
