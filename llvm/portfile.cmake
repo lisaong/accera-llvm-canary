@@ -2,8 +2,13 @@
 set(LLVM_VERSION $ENV{LLVM_RELEASE}) # e.g. llvmorg-13.0.0
 
 set(VCPKG_BUILD_TYPE release)
-if(DEFINED ENV{LLVM_BUILD_TYPE})
-  set(VCPKG_BUILD_TYPE $ENV{LLVM_BUILD_TYPE} )
+if((DEFINED ENV{LLVM_BUILD_TYPE}) AND ("$ENV{LLVM_BUILD_TYPE}" STREQUAL "debug"))
+    # build both release and debug if debug is requested
+    # building only debug is not supported by vcpkg (includes etc will be missing)
+    unset(VCPKG_BUILD_TYPE)
+    message(STATUS "Building both debug and release versions of LLVM")
+else()
+    message(STATUS "Building release version of LLVM")
 endif()
 
 # BUILD_SHARED_LIBS option is not supported on Windows
