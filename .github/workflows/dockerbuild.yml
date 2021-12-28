@@ -25,7 +25,7 @@ jobs:
       with:
         owner: llvm
         repo: llvm-project
-        excludes: prerelease, draft
+        excludes: draft #, prerelease
 
     - name: Docker metadata
       id: meta
