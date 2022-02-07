@@ -16,13 +16,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        docker-account: ['docker1', 'docker2']
+        docker_id: ['lisaong', 'acceracontainers']
         include:
-          - docker-account: 'docker1'
-            username_id: DOCKER_USERNAME
+          - docker_id: 'lisaong'
             password_id: DOCKER_PASSWORD
-          - docker-account: 'docker2'
-            username_id: ACCERA_DOCKER_USERNAME
+          - docker_id: 'acceracontainers'
             password_id: ACCERA_DOCKER_PASSWORD
 
     runs-on: ubuntu-latest
@@ -43,7 +41,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ${{ secrets[matrix.username_id] }}/accera-llvm-ubuntu
+        images: ${{ matrix.docker_id }}/accera-llvm-ubuntu
         flavor: |
           suffix=-${{ steps.llvm.outputs.release }}
           latest=true
@@ -54,7 +52,7 @@ jobs:
     - name: Dockerhub login
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets[matrix.username_id] }}
+        username: ${{ matrix.docker_id }}
         password: ${{ secrets[matrix.password_id] }}
 
     - name: Build and push
