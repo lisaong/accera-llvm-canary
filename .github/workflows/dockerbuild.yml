@@ -43,7 +43,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ${{ secrets[matrix.username] }}/accera-llvm-ubuntu
+        images: ${{ secrets[matrix.username_id] }}/accera-llvm-ubuntu
         flavor: |
           suffix=-${{ steps.llvm.outputs.release }}
           latest=true
@@ -54,8 +54,8 @@ jobs:
     - name: Dockerhub login
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets[matrix.username] }}
-        password: ${{ secrets[matrix.password] }}
+        username: ${{ secrets[matrix.username_id] }}
+        password: ${{ secrets[matrix.password_id] }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
