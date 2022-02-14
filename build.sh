@@ -1,14 +1,18 @@
-@setlocal
-@echo off
+#!/bin/sh
+set -x -e
 
-REM To update the submodule: git submodule update --remote --merge
+# Usage:
+#   sh build.sh tag
+# Example:
+#   sh build.sh llvmorg-14.0.0-rc1
+
+# To update the submodule: git submodule update --remote --merge
 git submodule init
 git submodule update
 
-REM call external\vcpkg\bootstrap-vcpkg.bat
+./external/vcpkg/bootstrap-vcpkg.sh
 
-REM e.g. set LLVM_RELEASE=llvmorg-14.0.0-rc1
-set LLVM_RELEASE=%1
-set VCPKG_KEEP_ENV_VARS=LLVM_RELEASE,LLVM_BUILD_TYPE
+export LLVM_RELEASE=$1
+export VCPKG_KEEP_ENV_VARS=LLVM_RELEASE,LLVM_BUILD_TYPE
 
-external\vcpkg\vcpkg install accera-llvm:x64-windows --overlay-ports=llvm
+external/vcpkg/vcpkg install accera-llvm --overlay-ports=llvm
