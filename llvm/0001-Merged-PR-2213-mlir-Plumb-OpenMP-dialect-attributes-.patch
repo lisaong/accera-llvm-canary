@@ -1,6 +1,6 @@
-From f125e44478c27498be4051f86b27dd94468ff5e5 Mon Sep 17 00:00:00 2001
+From 77208dba61794ed832b7d738fd7d18f8f4e16047 Mon Sep 17 00:00:00 2001
 From: Lisa Ong <onglisa@microsoft.com>
-Date: Mon, 14 Feb 2022 18:30:05 +0800
+Date: Mon, 14 Feb 2022 22:38:36 +0800
 Subject: [PATCH] Merged PR 2213: [mlir] Plumb OpenMP dialect attributes
  through affine and scf lowering
 
@@ -88,7 +88,7 @@ index 8ff1134f4b7b..888a6ed20fdc 100644
      return success();
    }
 diff --git a/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp b/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
-index e472af257776..a759c37f3b1d 100644
+index e472af257776..f17b31f0ef75 100644
 --- a/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
 +++ b/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
 @@ -389,7 +389,18 @@ struct ParallelOpLowering : public OpRewritePattern<scf::ParallelOp> {
@@ -100,7 +100,7 @@ index e472af257776..a759c37f3b1d 100644
 +    if (auto numThreads = parallelOp->getAttrOfType<IntegerAttr>(omp::getNumThreadsAttrName())) {
 +      Value numThreadsVal = rewriter.create<arith::ConstantIntOp>(loc, numThreads.getInt(), numThreads.getType());
 +      auto procBindStr = parallelOp->getAttrOfType<StringAttr>(omp::getProcBindAttrName());
-+      if (auto procBind = symbolizeEnum<omp::ClauseProcBindKindAttr>(procBindStr)) {
++      if (auto procBind = omp::symbolizeClauseProcBindKind(procBindStr)) {
 +        ompParallel = rewriter.create<omp::ParallelOp>(loc, numThreadsVal, *procBind);
 +      } else {
 +        return failure();
