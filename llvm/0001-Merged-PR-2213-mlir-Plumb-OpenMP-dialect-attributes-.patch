@@ -51,7 +51,7 @@ index 505e9cb22a0a..eaba022c9e75 100644
    let builders = [
 -    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>
 +    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>,
-+    OpBuilder<(ins "Value":$num_threads, "StringRef":$proc_bind)>
++    OpBuilder<(ins "Value":$num_threads, "ClauseProcBindKind":$proc_bind)>
    ];
    let parser = [{ return parseParallelOp(parser, result); }];
    let printer = [{ return printParallelOp(p, *this); }];
@@ -139,7 +139,7 @@ index 46a2bf3019e0..d9104bf41a93 100644
  }
  
 +void ParallelOp::build(OpBuilder &builder, OperationState &state,
-+                       Value numThreads, ClauseProcBindKindAttr procBind) {
++                       Value numThreads, ClauseProcBindKind procBind) {
 +  ParallelOp::build(
 +      builder, state, /*if_expr_var=*/nullptr, numThreads,
 +      /*default_val=*/nullptr, /*private_vars=*/ValueRange(),
