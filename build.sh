@@ -1,10 +1,11 @@
 #!/bin/sh
-set -x -e
+if [ -z "$1" ]; then
+    echo "Usage: $0 tag"
+    echo "E.g. $0 llvmorg-14.0.0-rc1"
+    exit 1
+fi
 
-# Usage:
-#   sh build.sh tag
-# Example:
-#   sh build.sh llvmorg-14.0.0-rc1
+set -x -e
 
 # To update the submodule: git submodule update --remote --merge
 git submodule init
