@@ -1,19 +1,25 @@
-From 77208dba61794ed832b7d738fd7d18f8f4e16047 Mon Sep 17 00:00:00 2001
-From: Lisa Ong <onglisa@microsoft.com>
-Date: Mon, 14 Feb 2022 22:38:36 +0800
-Subject: [PATCH] Merged PR 2213: [mlir] Plumb OpenMP dialect attributes
- through affine and scf lowering
+commit a50c92f66ae67f62e50f5a3ad9ef8f338de9ee42
+Author: Lisa Ong
+Date:   Fri Feb 25 05:55:04 2022 -0800
 
-Updated AffineToSCF and SCFToOpenMP to support OMP dialect attributes for num_threads, schedule_val, proc_bind, and collapse
+    Fix for https://reviews.llvm.org/D117514
 
-Related work items: #3492
+commit 6aebd93619411eac59d7927564fd0d5130f35bbf
+Author: Lisa Ong
+Date:   Mon Feb 14 18:30:05 2022 +0800
+
+    Merged PR 2213: [mlir] Plumb OpenMP dialect attributes through affine and scf lowering
+
+    Updated AffineToSCF and SCFToOpenMP to support OMP dialect attributes for num_threads, schedule_val, proc_bind, and collapse
+
+    Related work items: #3492
 ---
- .../mlir/Dialect/OpenMP/OpenMPDialect.h       | 17 ++++++++++++++
+ .../mlir/Dialect/OpenMP/OpenMPDialect.h       | 17 +++++++++++++
  mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td |  3 ++-
  .../AffineToStandard/AffineToStandard.cpp     |  7 ++++++
- .../Conversion/SCFToOpenMP/SCFToOpenMP.cpp    | 23 +++++++++++++++++--
+ .../Conversion/SCFToOpenMP/SCFToOpenMP.cpp    | 24 +++++++++++++++++--
  mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp  | 10 ++++++++
- 5 files changed, 57 insertions(+), 3 deletions(-)
+ 5 files changed, 58 insertions(+), 3 deletions(-)
 
 diff --git a/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h b/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h
 index 05d7637d52d7..8295b01f8fcd 100644
@@ -42,7 +48,7 @@ index 05d7637d52d7..8295b01f8fcd 100644
 +
  #endif // MLIR_DIALECT_OPENMP_OPENMPDIALECT_H_
 diff --git a/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td b/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td
-index 505e9cb22a0a..eaba022c9e75 100644
+index 505e9cb22a0a..d124be11cb94 100644
 --- a/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td
 +++ b/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td
 @@ -124,7 +124,8 @@ def ParallelOp : OpenMP_Op<"parallel", [AttrSizedOperandSegments,
@@ -88,10 +94,10 @@ index 8ff1134f4b7b..888a6ed20fdc 100644
      return success();
    }
 diff --git a/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp b/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
-index e472af257776..f17b31f0ef75 100644
+index e472af257776..f289b07f3cd6 100644
 --- a/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
 +++ b/mlir/lib/Conversion/SCFToOpenMP/SCFToOpenMP.cpp
-@@ -389,7 +389,18 @@ struct ParallelOpLowering : public OpRewritePattern<scf::ParallelOp> {
+@@ -389,7 +389,19 @@ struct ParallelOpLowering : public OpRewritePattern<scf::ParallelOp> {
      }
  
      // Create the parallel wrapper.
@@ -112,7 +118,7 @@ index e472af257776..f17b31f0ef75 100644
      {
        OpBuilder::InsertionGuard guard(rewriter);
        rewriter.createBlock(&ompParallel.region());
-@@ -405,9 +416,17 @@ struct ParallelOpLowering : public OpRewritePattern<scf::ParallelOp> {
+@@ -405,9 +417,17 @@ struct ParallelOpLowering : public OpRewritePattern<scf::ParallelOp> {
        }
  
        // Replace the loop.
@@ -153,5 +159,5 @@ index 46a2bf3019e0..d9104bf41a93 100644
  // Parser and printer for Operand and type list
  //===----------------------------------------------------------------------===//
 -- 
-2.30.0.windows.1
+2.25.1
 
