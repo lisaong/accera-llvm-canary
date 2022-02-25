@@ -51,7 +51,7 @@ index 505e9cb22a0a..eaba022c9e75 100644
    let builders = [
 -    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>
 +    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>,
-+    OpBuilder<(ins "Value":$num_threads, "ProcBindKindAttr":$proc_bind)>
++    OpBuilder<(ins "Value":$num_threads, "ClauseProcBindKindAttr":$proc_bind)>
    ];
    let parser = [{ return parseParallelOp(parser, result); }];
    let printer = [{ return printParallelOp(p, *this); }];
@@ -101,7 +101,8 @@ index e472af257776..f17b31f0ef75 100644
 +      Value numThreadsVal = rewriter.create<arith::ConstantIntOp>(loc, numThreads.getInt(), numThreads.getType());
 +      auto procBindStr = parallelOp->getAttrOfType<StringAttr>(omp::getProcBindAttrName());
 +      if (auto procBind = omp::symbolizeClauseProcBindKind(procBindStr)) {
-+        ompParallel = rewriter.create<omp::ParallelOp>(loc, numThreadsVal, *procBind);
++        auto procBindAttr = omp::ClauseProcBindKindAttr::get(rewriter.getContext(), *procBind);
++        ompParallel = rewriter.create<omp::ParallelOp>(loc, numThreadsVal, procBindAttr);
 +      } else {
 +        return failure();
 +      }
@@ -139,7 +140,7 @@ index 46a2bf3019e0..d9104bf41a93 100644
  }
  
 +void ParallelOp::build(OpBuilder &builder, OperationState &state,
-+                       Value numThreads, ClauseProcBindKind procBind) {
++                       Value numThreads, ClauseProcBindKindAttr procBind) {
 +  ParallelOp::build(
 +      builder, state, /*if_expr_var=*/nullptr, numThreads,
 +      /*default_val=*/nullptr, /*private_vars=*/ValueRange(),
