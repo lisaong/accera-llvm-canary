@@ -7,5 +7,5 @@ set -x -e
 HOME=`pwd`
 cd external/vcpkg/buildtrees/accera-llvm/x64-linux-rel
 cmake --build .
-cmake --build . --target install
+cmake --build . --target mlir-tblgen
 cd $HOME
