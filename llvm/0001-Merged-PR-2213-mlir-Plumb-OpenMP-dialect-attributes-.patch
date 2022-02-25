@@ -51,7 +51,7 @@ index 505e9cb22a0a..eaba022c9e75 100644
    let builders = [
 -    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>
 +    OpBuilder<(ins CArg<"ArrayRef<NamedAttribute>", "{}">:$attributes)>,
-+    OpBuilder<(ins "Value":$num_threads, "ClauseProcBindKind":$proc_bind)>
++    OpBuilder<(ins "Value":$num_threads, "ProcBindKindAttr":$proc_bind)>
    ];
    let parser = [{ return parseParallelOp(parser, result); }];
    let printer = [{ return printParallelOp(p, *this); }];
