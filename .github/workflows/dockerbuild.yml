@@ -1,11 +1,12 @@
 name: llvm ubuntu build
 
 on:
-  # pull_request:
-  #   branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'llvm/**' ]
   push:
-    branches:
-      - 'main'
+    branches: [ main ]
+    paths: [ 'llvm/**' ]
   schedule:
     # https://crontab.guru/weekly
     - cron: '0 0 * * 0'
