@@ -54,7 +54,7 @@ vcpkg_configure_cmake(
         -DLLVM_ENABLE_RTTI=ON
         -DLLVM_ENABLE_ZLIB=OFF
         -DLLVM_INSTALL_UTILS=ON # FileCheck
-        "-DLLVM_ENABLE_PROJECTS=mlir"
+        "-DLLVM_ENABLE_PROJECTS=mlir;lld"
         "-DLLVM_TARGETS_TO_BUILD=host;X86;ARM;NVPTX;AMDGPU"
         -DPACKAGE_VERSION=${LLVM_VERSION}
         # Force TableGen to be built with optimization. This will significantly improve build time.
@@ -81,6 +81,10 @@ file(INSTALL ${CMAKE_CURRENT_LIST_DIR}/llvm_usage DESTINATION ${CURRENT_PACKAGES
 vcpkg_fixup_cmake_targets(CONFIG_PATH "share/mlir" TARGET_PATH "share/mlir" DO_NOT_DELETE_PARENT_CONFIG_PATH)
 file(INSTALL ${SOURCE_PATH}/mlir/LICENSE.TXT DESTINATION ${CURRENT_PACKAGES_DIR}/share/mlir RENAME copyright)
 file(INSTALL ${CMAKE_CURRENT_LIST_DIR}/mlir_usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/mlir RENAME usage)
+
+vcpkg_fixup_cmake_targets(CONFIG_PATH "share/lld" TARGET_PATH "share/lld" DO_NOT_DELETE_PARENT_CONFIG_PATH)
+file(INSTALL ${SOURCE_PATH}/lld/LICENSE.TXT DESTINATION ${CURRENT_PACKAGES_DIR}/share/lld RENAME copyright)
+file(INSTALL ${CMAKE_CURRENT_LIST_DIR}/lld_usage DESTINATION ${CURRENT_PACKAGES_DIR}/share/lld RENAME usage)
 
 file(INSTALL ${SOURCE_PATH}/llvm/LICENSE.TXT DESTINATION ${CURRENT_PACKAGES_DIR}/share/accera-llvm RENAME copyright)
 

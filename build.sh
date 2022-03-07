@@ -16,4 +16,5 @@ git submodule update
 export LLVM_RELEASE=$1
 export VCPKG_KEEP_ENV_VARS=LLVM_RELEASE,LLVM_BUILD_TYPE
 
+external/vcpkg/vcpkg remove accera-llvm --overlay-ports=llvm
 external/vcpkg/vcpkg install accera-llvm --overlay-ports=llvm
