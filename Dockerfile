@@ -1,4 +1,5 @@
-FROM ubuntu:focal
+ARG ARCH=
+FROM ${ARCH}ubuntu:focal
 
 ARG LLVM_RELEASE
 ARG LLVM_BUILD_TYPE=release

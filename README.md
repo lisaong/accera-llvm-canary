@@ -10,15 +10,22 @@ To build the release version of LLVM for a given ref (llvmorg-13.0.1):
 ```shell
 git submodule init
 git submodule update
-docker build . --build-arg LLVM_RELEASE=llvmorg-13.0.1 --tag lisaong/accera-llvm-ubuntu:main-llvmorg-13.0.1
+
+docker buildx build .\
+  --build-arg LLVM_RELEASE=llvmorg-14.0.0-rc4 --tag lisaong/accera-llvm-ubuntu:main-llvmorg-14.0.0-rc4 \
+  --platform linux/arm64,linux/amd64 \
+  --load
 ```
 
 To build both release and debug versions of LLVM for a given ref (llvmorg-13.0.1):
 
 ```shell
-git submodule init
-git submodule update
-docker build . --build-arg LLVM_RELEASE=llvmorg-13.0.1 --build-arg LLVM_BUILD_TYPE=debug --tag lisaong/accera-llvm-ubuntu-dbg:main-llvmorg-13.0.1
+
+docker buildx build .\
+  --build-arg LLVM_BUILD_TYPE=debug \
+  --build-arg LLVM_RELEASE=llvmorg-13.0.1 --tag lisaong/accera-llvm-ubuntu:main-llvmorg-13.0.1 \
+  --platform linux/arm64,linux/amd64 \
+  --load
 ```
 
 Building debug-only LLVM is not supported by vcpkg.
