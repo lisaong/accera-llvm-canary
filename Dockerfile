@@ -14,6 +14,6 @@ RUN sh /tmp/scripts/install.cuda.sh $TARGETPLATFORM
 ADD external/vcpkg /opt/vcpkg
 ADD llvm /opt/llvm-port
 WORKDIR /opt/vcpkg
-RUN sh /tmp/scripts/install.vcpkg.sh /opt/llvm-port
+RUN sh /tmp/scripts/install.vcpkg.sh /opt/llvm-port $TARGETPLATFORM
 
 RUN rm -rf /tmp/scripts

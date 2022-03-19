@@ -4,6 +4,10 @@ set -e -x
 VCPKG_ROOT=`pwd`
 PORT_SRC=$1
 
+if [[ "$2" = "linux/arm64" ]]; then
+  export VCPKG_FORCE_SYSTEM_BINARIES=1
+fi
+
 apt-get -qq update \
 && apt-get install -y --no-install-recommends \
     curl \
