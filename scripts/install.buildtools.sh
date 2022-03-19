@@ -57,7 +57,7 @@ if [[ "$1" = "linux/arm64" ]]; then
         && cp -fR cmake-3.21.6-linux-aarch64/* /usr \
         && rm -rf cmake-3.21.6-linux-aarch64 \
         && rm cmake-3.21.6-linux-aarch64.tar.gz
-elif
+else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
         && tar -xzf cmake-3.16.4-Linux-x86_64.tar.gz \
         --exclude=bin/cmake-gui \
