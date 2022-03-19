@@ -48,6 +48,8 @@ ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/include/locale.h /usr/include/xlocale.h \
     && rm -rf /var/lib/apt/lists/*
 
+# Tools like ninja fail when there is clock skew
+ntp -gq
 
 if [[ "$1" = "linux/arm64" ]]; then
     wget -q --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.21.6/cmake-3.21.6-linux-aarch64.tar.gz \
