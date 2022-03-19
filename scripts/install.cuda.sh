@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e -x
 
-if [[ $ARCH != "linux/arm64" ]]; then
+if [[ "$1" != "linux/arm64" ]]; then
     wget -O /etc/apt/preferences.d/cuda-repository-pin-600 https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin \
         && apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub \
         && add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /" \

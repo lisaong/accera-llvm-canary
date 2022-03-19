@@ -7,7 +7,7 @@ ARG LLVM_BUILD_TYPE=release
 ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts
 RUN sh /tmp/scripts/install.buildtools.sh
-RUN sh /tmp/scripts/install.cuda.sh
+RUN sh /tmp/scripts/install.cuda.sh ${ARCH}
 
 ADD external/vcpkg /opt/vcpkg
 ADD llvm /opt/llvm-port
