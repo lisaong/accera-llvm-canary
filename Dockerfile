@@ -1,5 +1,7 @@
-ARG ARCH=
-FROM ${ARCH}ubuntu:focal
+FROM ubuntu:focal
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 ARG LLVM_RELEASE
 ARG LLVM_BUILD_TYPE=release
@@ -7,7 +9,7 @@ ARG LLVM_BUILD_TYPE=release
 ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts
 RUN sh /tmp/scripts/install.buildtools.sh
-RUN sh /tmp/scripts/install.cuda.sh $ARCH
+RUN sh /tmp/scripts/install.cuda.sh $TARGETPLATFORM
 
 ADD external/vcpkg /opt/vcpkg
 ADD llvm /opt/llvm-port
