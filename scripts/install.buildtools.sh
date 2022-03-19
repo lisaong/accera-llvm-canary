@@ -69,7 +69,8 @@ if [[ "$1" = "linux/arm64" ]]; then
         && cp -f /usr/bin/ninja /usr/local/bin/ \
         && update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force \
         && cd .. \
-        && rm -rf ninja-1.10.2
+        && rm -rf ninja-1.10.2 \
+        && rm -rf ninja-1.10.2.tar.gz
 
 else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
