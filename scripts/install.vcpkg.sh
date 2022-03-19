@@ -5,7 +5,7 @@ VCPKG_ROOT=`pwd`
 PORT_SRC=$1
 
 apt-get -qq update \
-apt-get install -y --no-install-recommends \
+&& apt-get install -y --no-install-recommends \
     curl \
     pkg-config \
     tar \
