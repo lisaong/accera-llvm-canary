@@ -39,7 +39,8 @@ apt-get -qq update \
     python3-pip \
     python3-dev \
     libvulkan-dev \
-    libomp-dev
+    libomp-dev \
+    cmake
 
 ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/bin/g++-10 /usr/bin/g++ \
