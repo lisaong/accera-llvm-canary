@@ -57,6 +57,17 @@ if [[ "$1" = "linux/arm64" ]]; then
         && cp -fR cmake-3.21.6-linux-aarch64/* /usr \
         && rm -rf cmake-3.21.6-linux-aarch64 \
         && rm cmake-3.21.6-linux-aarch64.tar.gz
+
+    # https://github.com/ninja-build/ninja
+    wget https://github.com/ninja-build/ninja/archive/refs/tags/v1.10.2.tar.gz \
+        && tar -xzf v1.10.2.tar.gz \
+        && cd ninja-1.10.2 \
+        && cmake -Bbuild-cmake \
+        && cmake --build build-cmake \
+        && cp -f build-cmake/ninja /usr/bin/ninja \
+        && cp -f /usr/bin/ninja /usr/local/bin/ \
+        && update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
+
 else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
         && tar -xzf cmake-3.16.4-Linux-x86_64.tar.gz \
