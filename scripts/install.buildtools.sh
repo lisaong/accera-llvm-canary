@@ -40,7 +40,8 @@ apt-get -qq update \
     python3-dev \
     libvulkan-dev \
     libomp-dev \
-    cmake
+    cmake \
+    ntp
 
 ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/bin/g++-10 /usr/bin/g++ \
@@ -66,7 +67,9 @@ if [[ "$1" = "linux/arm64" ]]; then
         && cmake --build build-cmake \
         && cp -f build-cmake/ninja /usr/bin/ninja \
         && cp -f /usr/bin/ninja /usr/local/bin/ \
-        && update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
+        && update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force \
+        && cd .. \
+        && rm -rf ninja-1.10.2
 
 else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
