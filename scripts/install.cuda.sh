@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e -x
 
 if [[ "$1" != "linux/arm64" ]]; then
