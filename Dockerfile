@@ -8,7 +8,7 @@ ARG LLVM_BUILD_TYPE=release
 
 ADD scripts /tmp/scripts
 WORKDIR /tmp/scripts
-RUN sh /tmp/scripts/install.buildtools.sh
+RUN sh /tmp/scripts/install.buildtools.sh $TARGETPLATFORM
 RUN sh /tmp/scripts/install.cuda.sh $TARGETPLATFORM
 
 ADD external/vcpkg /opt/vcpkg

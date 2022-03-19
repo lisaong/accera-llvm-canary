@@ -46,3 +46,24 @@ ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/bin/g++-10 /usr/bin/g++ \
     && ln -sf /usr/include/locale.h /usr/include/xlocale.h \
     && rm -rf /var/lib/apt/lists/*
+
+
+if [[ "$1" = "linux/arm64" ]]; then
+    wget -q --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.21.6/cmake-3.21.6-linux-aarch64.tar.gz \
+        && tar -xzf cmake-3.21.6-linux-aarch64.tar.gz \
+        --exclude=bin/cmake-gui \
+        --exclude=doc/cmake \
+        --exclude=share/cmake-3.21/Help \
+        && cp -fR cmake-3.21.6-linux-aarch64/* /usr \
+        && rm -rf cmake-3.21.6-linux-aarch64 \
+        && rm cmake-3.21.6-linux-aarch64.tar.gz
+elif
+    wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
+        && tar -xzf cmake-3.16.4-Linux-x86_64.tar.gz \
+        --exclude=bin/cmake-gui \
+        --exclude=doc/cmake \
+        --exclude=share/cmake-3.16/Help \
+        && cp -fR cmake-3.16.4-Linux-x86_64/* /usr \
+        && rm -rf cmake-3.16.4-Linux-x86_64 \
+        && rm cmake-3.16.4-Linux-x86_64.tar.gz
+fi
