@@ -14,16 +14,6 @@ on:
 
 jobs:
   docker:
-    strategy:
-      fail-fast: false
-      matrix:
-        docker_id: ['lisaong', 'acceracontainers']
-        include:
-          - docker_id: 'lisaong'
-            password_id: DOCKER_PASSWORD
-          - docker_id: 'acceracontainers'
-            password_id: ACCERA_DOCKER_PASSWORD
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -53,8 +43,8 @@ jobs:
     - name: Dockerhub login
       uses: docker/login-action@v1
       with:
-        username: ${{ matrix.docker_id }}
-        password: ${{ secrets[matrix.password_id] }}
+        username: 'lisaong'
+        password: ${{ secrets[DOCKER_PASSWORD] }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -64,6 +54,22 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
         build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+
+    - name: Dockerhub login
+      uses: docker/login-action@v1
+      with:
+        username: 'acceracontainers'
+        password: ${{ secrets[ACCERA_DOCKER_PASSWORD] }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        push: ${{ github.event_name != 'pull_request' }}
+        build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+
 
     - name: Upload build logs
       if: ${{ failure() }}
