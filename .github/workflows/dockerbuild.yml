@@ -44,7 +44,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: 'lisaong'
-        password: ${{ secrets[DOCKER_PASSWORD] }}
+        password: ${{ secrets['DOCKER_PASSWORD'] }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
@@ -59,7 +59,7 @@ jobs:
       uses: docker/login-action@v1
       with:
         username: 'acceracontainers'
-        password: ${{ secrets[ACCERA_DOCKER_PASSWORD] }}
+        password: ${{ secrets['ACCERA_DOCKER_PASSWORD'] }}
 
     - name: Build and push
       uses: docker/build-push-action@v2
