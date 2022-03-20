@@ -48,9 +48,6 @@ ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/include/locale.h /usr/include/xlocale.h \
     && rm -rf /var/lib/apt/lists/*
 
-# Tools like ninja fail when there is clock skew
-ntp -gq
-
 if [[ "$1" = "linux/arm64" ]]; then
     wget -q --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.21.6/cmake-3.21.6-linux-aarch64.tar.gz \
         && tar -xzf cmake-3.21.6-linux-aarch64.tar.gz \
@@ -73,6 +70,9 @@ if [[ "$1" = "linux/arm64" ]]; then
         && cd .. \
         && rm -rf ninja-1.10.2 \
         && rm -rf ninja-1.10.2.tar.gz
+        
+    # Tools like ninja fail when there is clock skew
+    ntp -gq
 
 else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
