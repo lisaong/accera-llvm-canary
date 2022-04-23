@@ -46,7 +46,8 @@ apt-get -qq update \
     libvulkan-dev \
     libomp-dev \
     cmake \
-    ntp
+    ntp \
+    zip
 
 ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/bin/g++-10 /usr/bin/g++ \
