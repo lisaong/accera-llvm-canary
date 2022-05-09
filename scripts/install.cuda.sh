@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -x
 
+# https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+
 if [[ "$1" != "linux/arm64" ]]; then
     wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
         && dpkg -i cuda-keyring_1.0-1_all.deb
