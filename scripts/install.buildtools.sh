@@ -1,4 +1,8 @@
 #!/bin/bash
+# Example usage: 
+#   bash ./install.buildtools.sh linux/arm64
+#   bash ./install.buildtools.sh linux/x64
+
 set -e -x
 
 export CC=gcc-10
@@ -6,8 +10,8 @@ export CXX=g++-10
 export CMAKE_C_COMPILER=gcc-10
 export CMAKE_CXX_COMPILER=g++-10
 
-TZ="America/Los_Angeles"
-ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# TZ="America/Los_Angeles"
+# ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 apt-get -qq update \
 && apt-get install -y --no-install-recommends \
@@ -38,10 +42,12 @@ apt-get -qq update \
     python3 \
     python3-pip \
     python3-dev \
+    python3-venv \
     libvulkan-dev \
     libomp-dev \
     cmake \
-    ntp
+    ntp \
+    zip
 
 ln -sf /usr/bin/gcc-10 /usr/bin/gcc \
     && ln -sf /usr/bin/g++-10 /usr/bin/g++ \
@@ -72,7 +78,7 @@ if [[ "$1" = "linux/arm64" ]]; then
         && rm -rf ninja-1.10.2.tar.gz
         
     # Tools like ninja fail when there is clock skew
-    ntp -gq
+    # ntp -gq
 
 else
     wget -q --no-check-certificate https://cmake.org/files/v3.16/cmake-3.16.4-Linux-x86_64.tar.gz \
