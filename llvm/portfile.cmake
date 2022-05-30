@@ -1,5 +1,5 @@
 # Builds LLVM for features needed by Accera
-set(LLVM_VERSION $ENV{LLVM_RELEASE}) # e.g. llvmorg-13.0.0
+set(LLVM_VERSION llvmorg-14.0.0) # e.g. llvmorg-13.0.0
 
 set(VCPKG_BUILD_TYPE release)
 if((DEFINED ENV{LLVM_BUILD_TYPE}) AND ("$ENV{LLVM_BUILD_TYPE}" STREQUAL "debug"))
