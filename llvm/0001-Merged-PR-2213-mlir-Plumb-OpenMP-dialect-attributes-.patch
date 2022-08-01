@@ -182,10 +182,9 @@ index 96ff6b1c1414..18d8591baa14 100644
 +                       Value numThreads, ClauseProcBindKindAttr procBind) {
 +  ParallelOp::build(
 +      builder, state, /*if_expr_var=*/nullptr, numThreads,
-+      /*default_val=*/nullptr, /*private_vars=*/ValueRange(),
-+      /*firstprivate_vars=*/ValueRange(), /*shared_vars=*/ValueRange(),
-+      /*copyin_vars=*/ValueRange(), /*allocate_vars=*/ValueRange(),
-+      /*allocators_vars=*/ValueRange(), procBind);
++      /*allocate_vars=*/ValueRange(), /*allocators_vars=*/ValueRange(),
++      /*reduction_vars=*/ValueRange(), /*reductions=*/nullptr,
++      procBind);
 +}
 +
  LogicalResult ParallelOp::verify() {
