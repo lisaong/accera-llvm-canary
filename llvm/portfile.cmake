@@ -27,8 +27,7 @@ vcpkg_from_github(
     0001-Merged-PR-2213-mlir-Plumb-OpenMP-dialect-attributes-.patch
     0002-Merged-PR-2237-Improved-codegen-of-vpmaddwd-instruct.patch
     0003-Fix-bad-merge.patch
-    0004-Lower-memref.copy-to-memcpy-when-layouts-canonicaliz.patch
-    0005-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
+    0004-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
 )
 
 vcpkg_find_acquire_program(PYTHON3)
