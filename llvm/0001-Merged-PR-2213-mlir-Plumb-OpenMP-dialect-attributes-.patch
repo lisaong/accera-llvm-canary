@@ -1,10 +1,10 @@
-From 522547ceaaa288d4c36c06b0cc7d76537ed21fb4 Mon Sep 17 00:00:00 2001
+From f8590d91bf19efae473e5e2f457ca219644d0bbc Mon Sep 17 00:00:00 2001
 From: Lisa Ong <onglisa@microsoft.com>
-Date: Mon, 1 Aug 2022 11:52:59 +0800
-Subject: [PATCH] Merged PR 2213: [mlir] Plumb OpenMP dialect attributes 
+Date: Mon, 1 Aug 2022 16:28:42 +0800
+Subject: [PATCH] Merged PR 2213: [mlir] Plumb OpenMP dialect attributes
  through affine and scf lowering
 
-* Updated AffineToSCF and SCFToOpenMP to support OMP dialect attributes for num_threads, schedule_val, proc_bind, and collapse
+Updated AffineToSCF and SCFToOpenMP to support OMP dialect attributes for num_threads, schedule_val, proc_bind, and collapse
 
 Related work items: #3492
 ---
@@ -12,8 +12,8 @@ Related work items: #3492
  mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td |  3 +-
  .../AffineToStandard/AffineToStandard.cpp     |  7 +++
  .../Conversion/SCFToOpenMP/SCFToOpenMP.cpp    | 48 ++++++++++++++-----
- mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp  | 10 ++++
- 5 files changed, 73 insertions(+), 12 deletions(-)
+ mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp  |  9 ++++
+ 5 files changed, 72 insertions(+), 12 deletions(-)
 
 diff --git a/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h b/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h
 index 05d7637d52d7..39f38475508c 100644
@@ -171,10 +171,10 @@ index e963f02de528..4dd84729f94c 100644
    RewritePatternSet patterns(module.getContext());
    patterns.add<ParallelOpLowering>(module.getContext());
 diff --git a/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp b/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp
-index 96ff6b1c1414..18d8591baa14 100644
+index 96ff6b1c1414..4574e43b3e3c 100644
 --- a/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp
 +++ b/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp
-@@ -476,6 +476,16 @@ void ParallelOp::build(OpBuilder &builder, OperationState &state,
+@@ -476,6 +476,15 @@ void ParallelOp::build(OpBuilder &builder, OperationState &state,
    state.addAttributes(attributes);
  }
  
