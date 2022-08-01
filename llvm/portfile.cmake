@@ -21,14 +21,13 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO llvm/llvm-project
     REF ${LLVM_VERSION}
-    SHA512 d64f97754c24f32deb5f284ebbd486b3a467978b7463d622f50d5237fff91108616137b4394f1d1ce836efa59bf7bec675b6dee257a79b241c15be52d4697460
+    SHA512 e8c6b736b8add9b7fe7eb54b539cbda555418a28f3b327c1f2637c77bdbfaf89c04160daf425bc3db0f6a40449dab012b8e8d8a3900028d924a3d13e97eec809
     HEAD_REF main
     PATCHES
     0001-Merged-PR-2213-mlir-Plumb-OpenMP-dialect-attributes-.patch
     0002-Merged-PR-2237-Improved-codegen-of-vpmaddwd-instruct.patch
     0003-Fix-bad-merge.patch
-    0004-Lower-memref.copy-to-memcpy-when-layouts-canonicaliz.patch
-    0005-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
+    0004-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
 )
 
 vcpkg_find_acquire_program(PYTHON3)

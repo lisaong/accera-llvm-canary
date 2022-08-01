@@ -1,0 +1,87 @@
+diff --git a/lld/cmake/modules/AddLLD.cmake b/lld/cmake/modules/AddLLD.cmake
+index d3924f7243d4..6d3f7755bf1e 100644
+--- a/lld/cmake/modules/AddLLD.cmake
++++ b/lld/cmake/modules/AddLLD.cmake
+@@ -47,7 +47,7 @@ macro(add_lld_tool name)
+     get_target_export_arg(${name} LLD export_to_lldtargets)
+     install(TARGETS ${name}
+       ${export_to_lldtargets}
+-      RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
++      RUNTIME DESTINATION "tools/llvm"
+       COMPONENT ${name})
+ 
+     if(NOT CMAKE_CONFIGURATION_TYPES)
+diff --git a/lld/cmake/modules/CMakeLists.txt b/lld/cmake/modules/CMakeLists.txt
+index 57195bce45c9..19cf43c017cc 100644
+--- a/lld/cmake/modules/CMakeLists.txt
++++ b/lld/cmake/modules/CMakeLists.txt
+@@ -5,14 +5,14 @@ include(FindPrefixFromConfig)
+ # Generate a list of CMake library targets so that other CMake projects can
+ # link against them. LLVM calls its version of this file LLVMExports.cmake, but
+ # the usual CMake convention seems to be ${Project}Targets.cmake.
+-set(LLD_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/lld" CACHE STRING
+-  "Path for CMake subdirectory for LLD (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/lld')")
++set(LLD_INSTALL_PACKAGE_DIR "share/lld" CACHE STRING
++  "Path for CMake subdirectory for LLD (defaults to 'share/lld')")
+ # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
+ set(lld_cmake_builddir "${CMAKE_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/lld")
+ 
+ # Keep this in sync with llvm/cmake/CMakeLists.txt!
+-set(LLVM_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/llvm" CACHE STRING
+-  "Path for CMake subdirectory for LLVM (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/llvm')")
++set(LLVM_INSTALL_PACKAGE_DIR "share/llvm" CACHE STRING
++  "Path for CMake subdirectory for LLVM (defaults to 'share/llvm')")
+ # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
+ set(llvm_cmake_builddir "${LLVM_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/llvm")
+ 
+diff --git a/lld/tools/lld/CMakeLists.txt b/lld/tools/lld/CMakeLists.txt
+index df48cc0d6c51..7b63203b6dfa 100644
+--- a/lld/tools/lld/CMakeLists.txt
++++ b/lld/tools/lld/CMakeLists.txt
+@@ -20,7 +20,7 @@ target_link_libraries(lld
+   )
+ 
+ install(TARGETS lld
+-  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
++  RUNTIME DESTINATION "tools/llvm")
+ 
+ if(NOT LLD_SYMLINKS_TO_CREATE)
+   set(LLD_SYMLINKS_TO_CREATE
+diff --git a/llvm/cmake/modules/CMakeLists.txt b/llvm/cmake/modules/CMakeLists.txt
+index d4b0ab959148..ca5b7e08e134 100644
+--- a/llvm/cmake/modules/CMakeLists.txt
++++ b/llvm/cmake/modules/CMakeLists.txt
+@@ -3,8 +3,8 @@ include(ExtendPath)
+ include(LLVMDistributionSupport)
+ include(FindPrefixFromConfig)
+ 
+-set(LLVM_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/llvm" CACHE STRING
+-  "Path for CMake subdirectory for LLVM (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/llvm')")
++set(LLVM_INSTALL_PACKAGE_DIR "share/llvm" CACHE STRING
++  "Path for CMake subdirectory for LLVM (defaults to 'share/llvm')")
+ # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
+ set(llvm_cmake_builddir "${LLVM_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/llvm")
+ 
+diff --git a/mlir/cmake/modules/CMakeLists.txt b/mlir/cmake/modules/CMakeLists.txt
+index 5fd9454cad93..81a3cd59fe64 100644
+--- a/mlir/cmake/modules/CMakeLists.txt
++++ b/mlir/cmake/modules/CMakeLists.txt
+@@ -6,14 +6,14 @@ include(FindPrefixFromConfig)
+ # Generate a list of CMake library targets so that other CMake projects can
+ # link against them. LLVM calls its version of this file LLVMExports.cmake, but
+ # the usual CMake convention seems to be ${Project}Targets.cmake.
+-set(MLIR_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/mlir" CACHE STRING
+-  "Path for CMake subdirectory for Polly (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/polly')")
++set(MLIR_INSTALL_PACKAGE_DIR "share/mlir" CACHE STRING
++  "Path for CMake subdirectory for MLIR (defaults to 'share/mlir')")
+ # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
+ set(mlir_cmake_builddir "${CMAKE_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/mlir")
+ 
+ # Keep this in sync with llvm/cmake/CMakeLists.txt!
+-set(LLVM_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/llvm" CACHE STRING
+-  "Path for CMake subdirectory for LLVM (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/llvm')")
++set(LLVM_INSTALL_PACKAGE_DIR "share/llvm" CACHE STRING
++  "Path for CMake subdirectory for LLVM (defaults to 'share/llvm')")
+ # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
+ set(llvm_cmake_builddir "${LLVM_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/llvm")
+ 
