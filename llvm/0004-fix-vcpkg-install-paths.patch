@@ -1,3 +1,13 @@
+From 464e9d6824f7f8aedf4c389ff79624e34548473d Mon Sep 17 00:00:00 2001
+From: Lisa Ong <onglisa@microsoft.com>
+Date: Mon, 14 Feb 2022 16:44:51 +0800
+Subject: [PATCH] Updated vcpkg build paths patch
+
+Sources:
+https://github.com/microsoft/vcpkg/blob/master/ports/llvm/0002-fix-install-paths.patch
+https://github.com/microsoft/vcpkg/blob/master/ports/llvm/0009-fix-tools-install-path.patch
+
+
 diff --git a/lld/cmake/modules/AddLLD.cmake b/lld/cmake/modules/AddLLD.cmake
 index d3924f7243d4..6d3f7755bf1e 100644
 --- a/lld/cmake/modules/AddLLD.cmake
