@@ -14,7 +14,7 @@ jobs:
 
       - name: setup
         run: |
-          call external\vcpkg\bootstrap-vcpkg.bat
+          external\vcpkg\bootstrap-vcpkg.bat
           external\vcpkg\vcpkg.exe install catch2:x64-windows
 
       - name: build
