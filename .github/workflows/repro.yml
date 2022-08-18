@@ -14,14 +14,14 @@ jobs:
 
       - name: setup
         run: |
-          call external\vcpkg\bootstrap-vcpkg.bat
+          external\vcpkg\bootstrap-vcpkg.bat
           external\vcpkg\vcpkg.exe install catch2:x64-windows
 
       - name: build
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -G"Visual Studio 17 2022" -Ax64
+          cmake .. -DCMAKE_BUILD_TYPE=Release -G"Visual Studio 17 2022" -Ax64 
           cmake --build . --config Release
 
 
