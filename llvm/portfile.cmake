@@ -27,7 +27,7 @@ vcpkg_from_github(
     0001-Merged-PR-2213-mlir-Plumb-OpenMP-dialect-attributes-.patch
     0002-Merged-PR-2237-Improved-codegen-of-vpmaddwd-instruct.patch
     0003-Fix-bad-merge.patch
-    0004-Fix-issue-where-passed-in-op-printing-flags-were-ign.patch mlir_usage
+    0004-Fix-issue-where-passed-in-op-printing-flags-were-ign.patch
     0005-Merged-PR-2822-Fix-lowering-of-MemrefCastOp-to-the-L.patch
     0006-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
 )
