@@ -1,4 +1,4 @@
-From 464e9d6824f7f8aedf4c389ff79624e34548473d Mon Sep 17 00:00:00 2001
+From fde337d07e531a7660834997445283e8bb256ff8 Mon Sep 17 00:00:00 2001
 From: Lisa Ong <onglisa@microsoft.com>
 Date: Mon, 14 Feb 2022 16:44:51 +0800
 Subject: [PATCH] Updated vcpkg build paths patch
@@ -6,7 +6,13 @@ Subject: [PATCH] Updated vcpkg build paths patch
 Sources:
 https://github.com/microsoft/vcpkg/blob/master/ports/llvm/0002-fix-install-paths.patch
 https://github.com/microsoft/vcpkg/blob/master/ports/llvm/0009-fix-tools-install-path.patch
-
+---
+ lld/cmake/modules/AddLLD.cmake    | 2 +-
+ lld/cmake/modules/CMakeLists.txt  | 8 ++++----
+ lld/tools/lld/CMakeLists.txt      | 2 +-
+ llvm/CMakeLists.txt               | 4 ++--
+ mlir/cmake/modules/CMakeLists.txt | 8 ++++----
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/lld/cmake/modules/AddLLD.cmake b/lld/cmake/modules/AddLLD.cmake
 index d3924f7243d4..6d3f7755bf1e 100644
@@ -57,21 +63,21 @@ index df48cc0d6c51..7b63203b6dfa 100644
  
  if(NOT LLD_SYMLINKS_TO_CREATE)
    set(LLD_SYMLINKS_TO_CREATE
-diff --git a/llvm/cmake/modules/CMakeLists.txt b/llvm/cmake/modules/CMakeLists.txt
-index d4b0ab959148..ca5b7e08e134 100644
---- a/llvm/cmake/modules/CMakeLists.txt
-+++ b/llvm/cmake/modules/CMakeLists.txt
-@@ -3,8 +3,8 @@ include(ExtendPath)
- include(LLVMDistributionSupport)
- include(FindPrefixFromConfig)
- 
+diff --git a/llvm/CMakeLists.txt b/llvm/CMakeLists.txt
+index ba3d87a1e94d..9cbf8bb71243 100644
+--- a/llvm/CMakeLists.txt
++++ b/llvm/CMakeLists.txt
+@@ -325,8 +325,8 @@ set(LLVM_LIBDIR_SUFFIX "" CACHE STRING "Define suffix of library directory name
+ # LLVM_INSTALL_PACKAGE_DIR needs to be declared prior to adding the tools
+ # subdirectory in order to have the value available for llvm-config.
+ include(GNUInstallPackageDir)
 -set(LLVM_INSTALL_PACKAGE_DIR "${CMAKE_INSTALL_PACKAGEDIR}/llvm" CACHE STRING
 -  "Path for CMake subdirectory for LLVM (defaults to '${CMAKE_INSTALL_PACKAGEDIR}/llvm')")
 +set(LLVM_INSTALL_PACKAGE_DIR "share/llvm" CACHE STRING
 +  "Path for CMake subdirectory for LLVM (defaults to 'share/llvm')")
- # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
- set(llvm_cmake_builddir "${LLVM_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/llvm")
  
+ set(LLVM_TOOLS_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}" CACHE STRING
+     "Path for binary subdirectory (defaults to '${CMAKE_INSTALL_BINDIR}')")
 diff --git a/mlir/cmake/modules/CMakeLists.txt b/mlir/cmake/modules/CMakeLists.txt
 index 5fd9454cad93..81a3cd59fe64 100644
 --- a/mlir/cmake/modules/CMakeLists.txt
@@ -95,3 +101,6 @@ index 5fd9454cad93..81a3cd59fe64 100644
  # CMAKE_INSTALL_PACKAGEDIR might be absolute, so don't reuse below.
  set(llvm_cmake_builddir "${LLVM_BINARY_DIR}/lib${LLVM_LIBDIR_SUFFIX}/cmake/llvm")
  
+-- 
+2.32.1 (Apple Git-133)
+
