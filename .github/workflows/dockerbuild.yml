@@ -25,13 +25,13 @@ jobs:
       with:
         submodules: 'recursive'
 
-    - name: Get latest LLVM release
-      id: llvm
-      uses: pozetroninc/github-action-get-latest-release@v0.5.0
-      with:
-        owner: llvm
-        repo: llvm-project
-        excludes: draft, prerelease
+    # - name: Get latest LLVM release
+    #   id: llvm
+    #   uses: pozetroninc/github-action-get-latest-release@v0.5.0
+    #   with:
+    #     owner: llvm
+    #     repo: llvm-project
+    #     excludes: draft, prerelease
 
     - name: ACR login
       uses: azure/docker-login@v1
@@ -46,7 +46,7 @@ jobs:
       with:
         images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
         flavor: |
-          suffix=-llvmorg-14.0.6-1
+          suffix=""
           latest=true
 
     - name: Set up QEMU
@@ -63,7 +63,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
-        build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+        build-args: LLVM_RELEASE=llvmorg-14.0.6
 
     - name: Upload build logs
       if: ${{ failure() }}
