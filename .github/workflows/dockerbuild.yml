@@ -46,8 +46,8 @@ jobs:
       with:
         images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
         flavor: |
-          suffix=""
           latest=true
+#          suffix=
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
