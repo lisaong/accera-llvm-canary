@@ -46,7 +46,7 @@ jobs:
       with:
         images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
         flavor: |
-          suffix=-${{ steps.llvm.outputs.release }}
+          suffix=-llvmorg-14.0.6-1
           latest=true
 
     - name: Set up QEMU
@@ -63,7 +63,7 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         push: ${{ github.event_name != 'pull_request' }}
-        build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+        build-args: LLVM_RELEASE=14.0.6
 
     - name: Upload build logs
       if: ${{ failure() }}
