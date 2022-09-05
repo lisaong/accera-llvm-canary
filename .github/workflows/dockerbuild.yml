@@ -45,9 +45,9 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
-        flavor: |
-          latest=true
-#          suffix=
+        # flavor: |
+        #   suffix=-${{ steps.llvm.outputs.release }}
+        #   latest=true
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
