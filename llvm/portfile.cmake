@@ -28,7 +28,8 @@ vcpkg_from_github(
     0002-Merged-PR-2237-Improved-codegen-of-vpmaddwd-instruct.patch
     0003-Fix-bad-merge.patch
     0004-Fix-issue-where-passed-in-op-printing-flags-were-ign.patch
-    0005-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
+    0005-More-flexible-code-generation-for-vpmaddwd-instructi.patch
+    0006-fix-vcpkg-install-paths.patch # cf. https://github.com/microsoft/vcpkg/blob/master/ports/llvm
 )
 
 vcpkg_find_acquire_program(PYTHON3)
