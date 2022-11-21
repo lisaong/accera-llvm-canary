@@ -21,7 +21,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO llvm/llvm-project
     REF ${LLVM_VERSION}
-    SHA512 800d2adee2c21dbb74974d005bac4c4d7987bc6d5d0cf94430fc43eef137802024c60addb7e20816bb531ca95bc511dc37b612ad321cdf2d6f4f9f53985cee8f
+    SHA512 cdc102ae1680bdb48ae3f075dac2b62c4aea61ac978018b8af96294987c715adcb8aae3d84824d913e77a0fc33aad791856520210137a2d43d3a5ce889f6cfb5
     HEAD_REF main
     PATCHES
     0001-Merged-PR-2213-mlir-Plumb-OpenMP-dialect-attributes-.patch
