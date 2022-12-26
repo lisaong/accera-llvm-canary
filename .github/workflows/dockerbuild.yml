@@ -27,8 +27,10 @@ jobs:
 
     - name: Get latest LLVM release
       id: llvm
-      run: |
-        release=`sh scripts/get_latest_release.sh "llvm/llvm-project"` >> $GITHUB_OUTPUT
+      run: sh scripts/get_latest_release.sh "llvm/llvm-project" >> $GITHUB_OUTPUT
+
+    - name: Get latest LLVM release (test)
+      run: echo ${{ steps.llvm.outputs.output1 }}
 
     - name: ACR login
       uses: azure/docker-login@v1
@@ -43,7 +45,7 @@ jobs:
       with:
         images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
         flavor: |
-          suffix=-${{ steps.llvm.outputs.release }}
+          suffix=-${{ steps.llvm.outputs.output1 }}
           latest=true
 
     # Note: Enable if building arm64
