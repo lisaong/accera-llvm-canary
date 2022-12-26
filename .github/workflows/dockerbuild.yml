@@ -2,14 +2,14 @@ name: Docker build and push
 
 on:
   pull_request:
-    branches: [ main ]
-    paths: [ 'llvm/**' ]
+    branches: [main]
+    paths: ["llvm/**"]
   push:
-    branches: [ main ]
-    paths: [ 'llvm/**' ]
+    branches: [main]
+    paths: ["llvm/**"]
   schedule:
     # https://crontab.guru/weekly
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
   workflow_dispatch:
 
 jobs:
@@ -17,57 +17,57 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: ['linux/amd64'] # ['linux/amd64', 'linux/arm64']
+        platform: ["linux/amd64"] # ['linux/amd64', 'linux/arm64']
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'recursive'
+      - uses: actions/checkout@v2
+        with:
+          submodules: "recursive"
 
-    - name: Get latest LLVM release
-      id: llvm
-      run: echo release=`sh scripts/get_latest_release.sh "llvm/llvm-project"` >> $GITHUB_OUTPUT
+      - name: Get latest LLVM release
+        id: llvm
+        run: echo release=`sh scripts/get_latest_release.sh "llvm/llvm-project"` >> $GITHUB_OUTPUT
 
-    # - name: Get latest LLVM release (test)
-    #   run: echo ${{ steps.llvm.outputs.release }}
+      # - name: Get latest LLVM release (test)
+      #   run: echo ${{ steps.llvm.outputs.release }}
 
-    - name: ACR login
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.AZ_ACR_NAME }}
-        username: ${{ secrets.AZ_SP_CLIENT_ID }}
-        password: ${{ secrets.AZ_SP_CLIENT_SECRET }}
+      - name: ACR login
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.AZ_ACR_NAME }}
+          username: ${{ secrets.AZ_SP_CLIENT_ID }}
+          password: ${{ secrets.AZ_SP_CLIENT_SECRET }}
 
-    - name: Docker metadata
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-        images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
-        flavor: |
-          suffix=-${{ steps.llvm.outputs.output1 }}
-          latest=true
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
+          flavor: |
+            suffix=-${{ steps.llvm.outputs.release }}
+            latest=true
 
-    # Note: Enable if building arm64
-    # - name: Set up QEMU
-    #   uses: docker/setup-qemu-action@v1
-   
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      # Note: Enable if building arm64
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v1
 
-    - name: Build and push
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        platforms: ${{ matrix.platform }}  
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        push: ${{ github.event_name != 'pull_request' }}
-        build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Upload build logs
-      if: ${{ failure() }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: accera-llvm-build-logs
-        path: /opt/vcpkg/buildtrees/accera-llvm/*.log
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: ${{ matrix.platform }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: ${{ github.event_name != 'pull_request' }}
+          build-args: LLVM_RELEASE=${{ steps.llvm.outputs.release }}
+
+      - name: Upload build logs
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: accera-llvm-build-logs
+          path: /opt/vcpkg/buildtrees/accera-llvm/*.log
