@@ -32,6 +32,7 @@ jobs:
         owner: llvm
         repo: llvm-project
         excludes: draft #, prerelease
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: ACR login
       uses: azure/docker-login@v1
