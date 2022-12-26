@@ -29,8 +29,8 @@ jobs:
         id: llvm
         run: echo release=`sh scripts/get_latest_release.sh "llvm/llvm-project"` >> $GITHUB_OUTPUT
 
-      # - name: Get latest LLVM release (test)
-      #   run: echo ${{ steps.llvm.outputs.release }}
+      - name: Get latest LLVM release (test)
+        run: echo ${{ steps.llvm.outputs.release }}
 
       - name: ACR login
         uses: azure/docker-login@v1
@@ -41,7 +41,7 @@ jobs:
 
       - name: Docker metadata
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: ${{ secrets.AZ_ACR_NAME }}/accera-llvm-ubuntu
           flavor: |
