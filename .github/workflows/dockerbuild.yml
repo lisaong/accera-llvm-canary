@@ -28,7 +28,7 @@ jobs:
     - name: Get latest LLVM release
       id: llvm
       run: |
-        release=`sh scripts/get_latest_release.sh "llvm/llvm-project"`` >> $GITHUB_OUTPUT
+        release=`sh scripts/get_latest_release.sh "llvm/llvm-project"` >> $GITHUB_OUTPUT
 
     - name: ACR login
       uses: azure/docker-login@v1
